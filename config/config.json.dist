@@ -1,0 +1,7 @@
+{
+    "CheckInterval": "1m",
+	"SmtpHost": "imap.gmail.com",
+	"SmtpPort": 993,
+	"MailUser": "",
+	"MailPassword": ""
+}

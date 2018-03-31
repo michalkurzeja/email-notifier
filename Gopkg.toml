@@ -9,3 +9,15 @@
 [[constraint]]
   name = "github.com/emersion/go-imap"
   version = "0.9.0"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/faiface/beep"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/vrischmann/jsonutil"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/gen2brain/beeep"

@@ -1,44 +1,44 @@
 package app
 
 import (
-	"fmt"
-	"time"
-	"github.com/getlantern/systray"
-	"email-notifier/src/assets"
+	"email-notifier/src/config"
 	"email-notifier/src/checker"
+	"github.com/getlantern/systray"
+	"time"
+	"github.com/skratchdot/open-golang/open"
 )
 
 type App struct {
-	menu menu
-	checker *checker.Checker
-	unread chan int
+	config		config.Config
+	menu        menu
+	checker     *checker.Checker
+	unread      chan uint
+	unreadCount	uint
 }
 
-func NewApp() App {
-	return App{make(menu), checker.NewChecker(), make(chan int)}
+func NewApp(config config.Config) App {
+	checker := checker.NewChecker(config.MailUser, config.MailPassword, config.SmtpHost, config.SmtpPort)
+
+	return App{config, make(menu), checker, make(chan uint), 0}
 }
 
 func (a *App) Start() {
-	a.setUp()
-}
-
-func (a *App) Exit() {}
-
-func (a *App) setUp() {
-	systray.SetIcon(assets.Get("gmail-red.ico"))
-	setUnread(0)
-
-	a.menu.register("quit", systray.AddMenuItem("Wyjdź", "Zakończ aplikację"))
+	a.menu.initialise()
+	a.updateStatus(0)
 
 	go a.menuHandler()
 	go a.checkHandler()
 	go a.statusUpdater()
 }
 
+func (a *App) Exit() {}
+
 func (a *App) menuHandler() {
 	for {
 		select {
-		case <- a.menu.notify("quit"):
+		case <-a.menu.notify("unread"):
+			open.Start("https://mail.google.com")
+		case <-a.menu.notify("quit"):
 			systray.Quit()
 		}
 	}
@@ -46,18 +46,7 @@ func (a *App) menuHandler() {
 
 func (a *App) checkHandler() {
 	for {
-		<- time.Tick(5 * time.Second)
+		<-time.Tick(a.config.CheckInterval.Duration)
 		a.unread <- a.checker.CheckUnreadCount()
 	}
-}
-
-func (a *App) statusUpdater() {
-	unread := <- a.unread
-
-
-}
-
-func setUnread(unread uint) {
-	systray.SetTitle(string(unread))	
-	systray.SetTooltip(fmt.Sprintf("Nieprzeczytane: %d", unread))
 }

@@ -21,6 +21,22 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/faiface/beep"
+  packages = [
+    ".",
+    "mp3",
+    "speaker"
+  ]
+  revision = "4ec0906f41871d561558e3e0643f71fb8bf08885"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/gen2brain/beeep"
+  packages = ["."]
+  revision = "982e34175ed3b8dc0d100fb0f0b06d8e2639ec4e"
+
+[[projects]]
+  branch = "master"
   name = "github.com/getlantern/context"
   packages = ["."]
   revision = "624d99b1798d7c5375ea1d3ca4c5b04d58f7c775"
@@ -74,10 +90,80 @@
   revision = "9ddd647aedba71f782bef029a90964301de03480"
 
 [[projects]]
+  name = "github.com/godbus/dbus"
+  packages = ["."]
+  revision = "a389bdde4dd695d414e47b755e95e72b7826432c"
+  version = "v4.1.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/gopherjs/gopherjs"
+  packages = ["js"]
+  revision = "82b322028c96512b15077093b16a5f1c7ea897ac"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/hajimehoshi/go-mp3"
+  packages = [
+    ".",
+    "internal/bits",
+    "internal/consts",
+    "internal/frame",
+    "internal/frameheader",
+    "internal/huffman",
+    "internal/imdct",
+    "internal/maindata",
+    "internal/sideinfo"
+  ]
+  revision = "3c185f92b8dbceefa913b64cae634ba47f452769"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/hajimehoshi/oto"
+  packages = [
+    ".",
+    "internal/jni"
+  ]
+  revision = "2e4fbedc591bdf406d9c600a28613bd0767a5486"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/nu7hatch/gouuid"
+  packages = ["."]
+  revision = "179d4d0c4d8d407a32af483c2354df1d2c91e6c3"
+
+[[projects]]
   branch = "master"
   name = "github.com/oxtoacart/bpool"
   packages = ["."]
   revision = "4e1c5567d7c2dd59fa4c7c83d34c2f3528b025d6"
+
+[[projects]]
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/skratchdot/open-golang"
+  packages = ["open"]
+  revision = "75fb7ed4208cf72d323d7d02fd1a5964a7a9073c"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/vrischmann/jsonutil"
+  packages = ["."]
+  revision = "d44b59f0575ca3785e670025e2488efe0a4a10c4"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/sys"
+  packages = [
+    "windows",
+    "windows/registry"
+  ]
+  revision = "378d26f46672a356c46195c28f61bdb4c0a781dd"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -91,9 +177,15 @@
   revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
   version = "v0.3.0"
 
+[[projects]]
+  branch = "v1"
+  name = "gopkg.in/toast.v1"
+  packages = ["."]
+  revision = "b700e246b8b6d3e13554091e540e1019e26389f1"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "1b8e2ba21803bb0fefb2fea8f2179256250243ff86f5fb00ae1a1ccef6ba5d33"
+  inputs-digest = "974cb760821d83558f7689650a4f3b2d71cc9a63355650e1901c29c2ef7a700b"
   solver-name = "gps-cdcl"
   solver-version = 1
