@@ -81,5 +81,8 @@ func selectIcon(unread uint) string {
 }
 
 func getUnreadTitle(unread uint) string {
+	if unread == 0 {
+		return "Brak wiadomości"
+	}
 	return fmt.Sprintf("Masz wiadomość: %d", unread)
 }
