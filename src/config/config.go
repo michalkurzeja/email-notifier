@@ -6,8 +6,8 @@ import (
 
 type Config struct {
 	CheckInterval jsonutil.Duration
-	SmtpHost string
-	SmtpPort uint
-	MailUser string
-	MailPassword string
+	SMTPHost      string
+	SMTPPort      uint
+	MailUser      string
+	MailPassword  string
 }

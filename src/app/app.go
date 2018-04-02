@@ -1,28 +1,39 @@
 package app
 
 import (
-	"email-notifier/src/config"
+	"email-notifier/src/assets"
 	"email-notifier/src/checker"
-	"github.com/getlantern/systray"
+	"email-notifier/src/config"
+	"log"
 	"time"
+	"github.com/michalkurzeja/notificator"
+	"github.com/emersion/go-imap"
+	"github.com/getlantern/systray"
 	"github.com/skratchdot/open-golang/open"
 )
 
 type App struct {
-	config		config.Config
-	menu        menu
-	checker     *checker.Checker
-	unread      chan uint
-	unreadCount	uint
+	config   config.Config
+	menu     menu
+	checker  *checker.Checker
+	messages <-chan imap.Message
+	unread   <-chan uint
+	notifier *notificator.Notificator
 }
 
 func NewApp(config config.Config) App {
-	checker := checker.NewChecker(config.MailUser, config.MailPassword, config.SmtpHost, config.SmtpPort)
+	checker, messages, unread := checker.NewChecker(checker.FromGlobalConfig(config))
+	notifier := notificator.New(notificator.Options{
+		DefaultIcon: assets.GetPath(assets.IconUnread),
+		AppName:     "Powiadamiacz",
+	})
 
-	return App{config, make(menu), checker, make(chan uint), 0}
+	return App{config, make(menu), checker, messages, unread, notifier}
 }
 
 func (a *App) Start() {
+	log.Println("Starting up!")
+
 	a.menu.initialise()
 	a.updateStatus(0)
 
@@ -31,7 +42,11 @@ func (a *App) Start() {
 	go a.statusUpdater()
 }
 
-func (a *App) Exit() {}
+func (a *App) Exit() {
+	log.Println("Stopping!")
+
+	a.checker.Stop()
+}
 
 func (a *App) menuHandler() {
 	for {
@@ -45,8 +60,10 @@ func (a *App) menuHandler() {
 }
 
 func (a *App) checkHandler() {
+	a.checker.Start()
+
 	for {
 		<-time.Tick(a.config.CheckInterval.Duration)
-		a.unread <- a.checker.CheckUnreadCount()
+		a.checker.Check()
 	}
 }

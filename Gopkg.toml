@@ -20,4 +20,4 @@
 
 [[constraint]]
   branch = "master"
-  name = "github.com/gen2brain/beeep"
+  name = "github.com/michalkurzeja/notificator"

@@ -1,6 +1,9 @@
 package app
 
 import (
+	// "io/ioutil"
+	// "log"
+	"github.com/emersion/go-imap"
 	"github.com/faiface/beep"
 	"os"
 	"github.com/faiface/beep/mp3"
@@ -9,12 +12,17 @@ import (
 	"fmt"
 	"email-notifier/src/assets"
 	"github.com/getlantern/systray"
-	"github.com/gen2brain/beeep"
+	"github.com/michalkurzeja/notificator"
 )
 
 func (a *App) statusUpdater() {
 	for {
-		a.updateStatus(<-a.unread)
+		select {
+		case unread := <- a.unread:
+			a.updateStatus(unread)
+		case message := <-a.messages:
+			a.notify(message) 
+		}
 	}
 }
 
@@ -23,25 +31,27 @@ func (a *App) updateStatus(unread uint) {
 	systray.SetTitle(string(unread))
 	systray.SetTooltip(getUnreadTitle(unread))
 	a.menu.get("unread").SetTitle(getUnreadTitle(unread))
-
-	if a.shouldNotify(unread) {
-		a.notify(unread)
-	}
-
-	a.unreadCount = unread	
 }
 
-func (a *App) shouldNotify(unread uint) bool {
-	return unread > a.unreadCount
-}
-
-func (a *App) notify(unread uint) {
-	go a.pushNotification(unread)
+func (a *App) notify(message imap.Message) {
+	// go a.pushNotification(message)
 	go a.playSound()
 }
 
-func (a *App) pushNotification(unread uint) {
-	beeep.Notify("Nowy email!", getUnreadTitle(unread), assets.GetAbsolutePath(assets.IconUnread))
+func (a *App) pushNotification(message imap.Message) {
+	// sectionName, _ := imap.NewBodySectionName("BODY[1.1]")
+	// bodyText := message.Body[sectionName]
+	// body := make([]byte, 50)
+
+	// body, err := ioutil.ReadAll(bodyText)
+	// // read, err := bodyText.Read(body)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	// log.Println(body)
+
+	a.notifier.Push(message.Envelope.Subject, message.Envelope.Subject, "", notificator.UR_NORMAL)
 }
 
 func (a *App) playSound() {
@@ -71,5 +81,5 @@ func selectIcon(unread uint) string {
 }
 
 func getUnreadTitle(unread uint) string {
-	return fmt.Sprintf("Nieprzeczytane wiadomości: %d", unread)
+	return fmt.Sprintf("Masz wiadomość: %d", unread)
 }

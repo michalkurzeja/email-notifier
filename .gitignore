@@ -4,3 +4,4 @@ dist
 vendor
 debug
 config/config.json
+log.txt

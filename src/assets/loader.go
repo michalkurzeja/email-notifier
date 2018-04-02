@@ -22,11 +22,19 @@ func Get(asset string) []byte {
 }
 
 func GetPath(asset string) string {
-    return basePath + "/" + asset
+    return getPath(asset, false)
+}
+
+func getPath(asset string, absolute bool) string {
+    prefix := "./"
+    if absolute {
+        prefix = "/"
+    }    
+    return prefix + basePath + "/" + asset
 }
 
 func GetAbsolutePath(asset string) string {
-    return getCurrentPath() + "/" + GetPath(asset)
+    return getCurrentPath() + "/" + getPath(asset, true)
 }
 
 func getCurrentPath() string {

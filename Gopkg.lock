@@ -31,12 +31,6 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/gen2brain/beeep"
-  packages = ["."]
-  revision = "982e34175ed3b8dc0d100fb0f0b06d8e2639ec4e"
-
-[[projects]]
-  branch = "master"
   name = "github.com/getlantern/context"
   packages = ["."]
   revision = "624d99b1798d7c5375ea1d3ca4c5b04d58f7c775"
@@ -90,12 +84,6 @@
   revision = "9ddd647aedba71f782bef029a90964301de03480"
 
 [[projects]]
-  name = "github.com/godbus/dbus"
-  packages = ["."]
-  revision = "a389bdde4dd695d414e47b755e95e72b7826432c"
-  version = "v4.1.0"
-
-[[projects]]
   branch = "master"
   name = "github.com/gopherjs/gopherjs"
   packages = ["js"]
@@ -128,9 +116,9 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/nu7hatch/gouuid"
+  name = "github.com/michalkurzeja/notificator"
   packages = ["."]
-  revision = "179d4d0c4d8d407a32af483c2354df1d2c91e6c3"
+  revision = "a9b92664ee7b7649cc613d6adc49183a4a9e3933"
 
 [[projects]]
   branch = "master"
@@ -157,15 +145,6 @@
   revision = "d44b59f0575ca3785e670025e2488efe0a4a10c4"
 
 [[projects]]
-  branch = "master"
-  name = "golang.org/x/sys"
-  packages = [
-    "windows",
-    "windows/registry"
-  ]
-  revision = "378d26f46672a356c46195c28f61bdb4c0a781dd"
-
-[[projects]]
   name = "golang.org/x/text"
   packages = [
     "encoding",
@@ -177,15 +156,9 @@
   revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
   version = "v0.3.0"
 
-[[projects]]
-  branch = "v1"
-  name = "gopkg.in/toast.v1"
-  packages = ["."]
-  revision = "b700e246b8b6d3e13554091e540e1019e26389f1"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "974cb760821d83558f7689650a4f3b2d71cc9a63355650e1901c29c2ef7a700b"
+  inputs-digest = "716151b4062da84dd6e6d84d863d5971f43be5043e482daf06855406ca119c66"
   solver-name = "gps-cdcl"
   solver-version = 1

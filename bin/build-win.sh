@@ -2,6 +2,7 @@
 
 rm -rf dist/*
 mkdir -p dist/notifier-win/config
+cp -r static-deps/* dist/notifier-win
 cp -r assets dist/notifier-win/assets
 cp -r config/config.json.dist dist/notifier-win/config/config.json
 
