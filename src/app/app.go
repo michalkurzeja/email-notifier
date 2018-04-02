@@ -53,6 +53,8 @@ func (a *App) menuHandler() {
 		select {
 		case <-a.menu.notify("unread"):
 			open.Start("https://mail.google.com")
+		case <-a.menu.notify("refresh"):
+			a.checker.Check()
 		case <-a.menu.notify("quit"):
 			systray.Quit()
 		}
@@ -63,7 +65,7 @@ func (a *App) checkHandler() {
 	a.checker.Start()
 
 	for {
-		<-time.Tick(a.config.CheckInterval.Duration)
 		a.checker.Check()
+		<-time.Tick(a.config.CheckInterval.Duration)
 	}
 }

@@ -8,6 +8,7 @@ type menu map[string]*systray.MenuItem
 
 func (m *menu) initialise() {
 	m.register("unread", systray.AddMenuItem(getUnreadTitle(0), "Nieprzeczytane"))	
+	m.register("refresh", systray.AddMenuItem("Odśwież", "Sprawdź nowe wiadomości"))	
 	systray.AddSeparator()
 	m.register("quit", systray.AddMenuItem("Wyjdź", "Zakończ aplikację"))
 }
