@@ -52,9 +52,11 @@ func (a *App) menuHandler() {
 	for {
 		select {
 		case <-a.menu.notify("unread"):
-			open.Start("https://mail.google.com")
+			err := open.Start("https://mail.google.com")
+			log.Println(err)
 		case <-a.menu.notify("refresh"):
-			a.checker.Check()
+			err := a.checker.Check()
+			log.Println(err)
 		case <-a.menu.notify("quit"):
 			systray.Quit()
 		}
@@ -62,10 +64,14 @@ func (a *App) menuHandler() {
 }
 
 func (a *App) checkHandler() {
-	a.checker.Start()
+	if err := a.checker.Start(); err != nil {
+		log.Fatal(err)
+	}
 
 	for {
-		a.checker.Check()
+		if err := a.checker.Check(); err != nil {
+			log.Println(err)
+		}
 		<-time.Tick(a.config.CheckInterval.Duration)
 	}
 }
